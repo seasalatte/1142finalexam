@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<article>
+    <hgroup>
+        <h1>{{ title }}</h1>
+    </hgroup>
+    {% if session.get('username') %}
+        <a href="{{ url_for('customer_list') }}" role="button">客戶列表</a>
+    {% else %}
+        <a href="{{ url_for('login') }}" role="button">登入</a>
+    {% endif %}
+</article>
+{% endblock %}

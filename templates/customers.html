@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}客戶列表{% endblock %}
+{% block content %}
+<header>
+    <h2>客戶列表</h2>
+    <a href="{{ url_for('customer_add') }}" role="button">+ 新增客戶</a>
+</header>
+
+<div class="overflow-auto">
+    <table>
+        <thead>
+            <tr>
+                <th>客戶編號</th>
+                <th>姓名</th>
+                <th>電子郵件</th>
+                <th>聯絡電話</th>
+                <th>地址</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for customer in customers %}
+            <tr>
+                <td><strong>{{ customer['cid'] }}</strong></td>
+                <td>{{ customer['cname'] }}</td>
+                <td>{{ customer['email'] }}</td>
+                <td>{{ customer['phone'] }}</td>
+                <td>{{ customer['address'] or '未提供' }}</td>
+                <td>
+                    <a href="{{ url_for('customer_edit', cid=customer['cid']) }}" role="button" class="primary">編輯</a>
+                    
+                    <form action="{{ url_for('customer_delete', cid=customer['cid']) }}" method="POST" class="inline-form" onsubmit="return confirm('確定要刪除這位客戶嗎？');">
+                        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                        <button type="submit" class="primary outline">刪除</button>
+                    </form>
+                </td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="6">無資料。</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<article>
+    <h2>{{ title }}</h2>
+    
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <label>
+            {{ form.cid.label }}
+            {% if is_edit %}
+                {{ form.cid(readonly=true) }}
+            {% else %}
+                {{ form.cid(placeholder="必填，3~10 字元") }}
+            {% endif %}
+            {% if form.cid.errors %}
+                <small>{{ form.cid.errors[0] }}</small>
+            {% endif %}
+        </label>
+
+        <label>
+            {{ form.cname.label }}
+            {{ form.cname(placeholder="必填") }}
+            {% if form.cname.errors %}
+                <small>{{ form.cname.errors[0] }}</small>
+            {% endif %}
+        </label>
+
+        <label>
+            {{ form.email.label }}
+            {{ form.email(placeholder="必填，需符合 Email 格式") }}
+            {% if form.email.errors %}
+                <small>{{ form.email.errors[0] }}</small>
+            {% endif %}
+        </label>
+
+        <label>
+            {{ form.phone.label }}
+            {{ form.phone(placeholder="必填，請輸入 10 碼行動電話號碼") }}
+            {% if form.phone.errors %}
+                <small>{{ form.phone.errors[0] }}</small>
+            {% endif %}
+        </label>
+
+        <label>
+            {{ form.address.label }}
+            {{ form.address(placeholder="選填") }}
+            {% if form.address.errors %}
+                <small>{{ form.address.errors[0] }}</small>
+            {% endif %}
+        </label>
+
+        <div>
+            {{ form.submit() }}
+            <a href="{{ url_for('customer_list') }}" role="button" class="secondary outline">返回列表</a>
+        </div>
+    </form>
+</article>
+{% endblock %}

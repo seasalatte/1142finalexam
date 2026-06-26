@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<article>
+    <h2>{{ title }}</h2>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        <label>帳號 {{ form.username(required=True) }}</label>
+        <label>密碼 {{ form.password(required=True) }}</label>
+        <button type="submit">登入</button>
+    </form>
+</article>
+{% endblock %}
